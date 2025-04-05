@@ -19,10 +19,7 @@ app.use(
 
 
 app.use(express.json())
-app.use(cors({
-  origin: 'http://localhost:5173', // allow frontend dev server
-  credentials: true,
-}))
+app.use(cors())
 
 await connectDB()
 
