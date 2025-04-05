@@ -8,13 +8,19 @@ import bodyParser from 'body-parser';
 import paymentRoutes from './routes/paymentRoutes.js';
 
 const PORT = process.env.PORT || 4000
+const allowedOrigins = ['http://localhost:5173', 'https://imagify-client-fr1p.onrender.com'];
 
 const app = express()
 
-app.use(
-    '/api/payment/webhook',
-    bodyParser.raw({ type: 'application/json' })
-  );
+app.use(cors({
+  origin: (origin, callback) => {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
   
 
 
